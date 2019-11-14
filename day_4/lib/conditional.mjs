@@ -1,4 +1,4 @@
-const equal = input => {
+export const equal = input => {
   if (input == "good") {
     return "Yes";
   } else {
@@ -10,7 +10,7 @@ const isNumber = data => {
   return typeof data != "number" ? false : true;
 };
 
-const compare = input => {
+export const compare = input => {
   let result;
   let data_type = isNumber(input);
 
@@ -29,7 +29,7 @@ const compare = input => {
   return result;
 };
 
-const day = input => {
+export const day = input => {
   let result;
 
   switch (input) {
@@ -59,10 +59,4 @@ const day = input => {
   }
 
   return result;
-};
-
-module.exports = {
-  equal,
-  compare,
-  day
 };
