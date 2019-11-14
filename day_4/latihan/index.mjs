@@ -2,6 +2,7 @@ import express from "express"
 const app = express()
 import { ascending_sort, descending_sort } from "../lib/array-sort.mjs"
 import { equal, day, compare } from "../lib/conditional.mjs"
+import { into_array } from "../lib/array.mjs"
 
 // for parsing application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }))
@@ -65,6 +66,16 @@ app.post("/task5", (req, res) => {
   let result = compare(number)
 
   return res.send(result)
+})
+
+app.get("/latihan1", (req, res) => {
+  let a = req.query.a
+  let b = req.query.b
+  console.log("Typeof ", typeof a + " " + typeof b)
+
+  let result = into_array(a, b)
+
+  return res.send(result.split(","))
 })
 
 app.listen(3000, () => {
