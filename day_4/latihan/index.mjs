@@ -3,6 +3,7 @@ const app = express()
 import { ascending_sort, descending_sort } from "../lib/array-sort.mjs"
 import { equal, day, compare } from "../lib/conditional.mjs"
 import { into_array } from "../lib/array.mjs"
+import { into_array_post } from "../lib/array.mjs"
 
 // for parsing application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }))
@@ -75,9 +76,16 @@ app.get("/latihan1", (req, res) => {
 
   let result = into_array(a, b)
 
-  return res.send(result.split(","))
+  return res.send(result)
+})
+
+app.post("/latihan2", (req, res) => {
+  let { name, email } = req.body
+  let result = into_array_post(name, email)
+
+  return res.send(result)
 })
 
 app.listen(3000, () => {
-  console.log(`Example app listening on port 3300`)
+  console.log(`Example app listening on port 3000`)
 })
