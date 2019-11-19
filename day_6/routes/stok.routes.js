@@ -1,29 +1,31 @@
 const express = require("express")
 const router = express.Router()
-const bookModel = require("../models/buku.model")
+const stokModel = require("../models/stok.model")
 
-// router.get("/", (req, res) => {
-// 	return res.send("Hello")
-// })
+router.get("/", (req, res) => {
+	return res.send("Hello Stok")
+})
 
 router.post("/create", async (req, res) => {
-	let { id_buku, judul, penulis, thn_terbit, penerbit } = req.body
+	let { pemasukan, pengeluaran, stok } = req.body
 	let input_data = {
-		id_buku, judul, penulis, thn_terbit, penerbit
+		pemasukan,
+		pengeluaran,
+		stok
 	}
 
-	let data = new bookModel(input_data)
+	let data = new stokModel(input_data)
 	data.save()
 
 	return res.send({
 		status: "Success",
 		data,
-		message: "Data buku berhasil dimasukkan"
+		message: "Stok berhasil ditambahkan"
 	})
 })
 
 router.get("/getAll", async (req, res) => {
-	let result = await bookModel.find({}).exec()
+	let result = await stokModel.find({}).exec()
 
 	res.send({
 		status: "Success",
@@ -35,7 +37,7 @@ router.get("/getAll", async (req, res) => {
 router.get("/:id", async (req, res) => {
 	let { id } = req.params
 
-	let data = await bookModel.findOne({ _id: id }).exec()
+	let data = await stokModel.findOne({ _id: id }).exec()
 
 	return res.send({
 		status: "Success",
@@ -46,18 +48,16 @@ router.get("/:id", async (req, res) => {
 
 router.put('/:id', async (req, res) => {
 	let { id } = req.params
-	let { id_buku, judul, penulis, thn_terbit, penerbit } = req.body
+	let { pemasukan, pengeluaran, stok } = req.body
 
 	let update_data = {
-		id_buku,
-		judul,
-		penulis,
-		thn_terbit,
-		penerbit
+		pemasukan,
+		pengeluaran,
+		stok
 	}
 
 	try {
-		let data = await bookModel.findByIdAndUpdate(id, update_data)
+		let data = await stokModel.findByIdAndUpdate(id, update_data)
 
 		return res.status(200).json({
 			status: "Success",
@@ -74,7 +74,7 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
 	let id = req.params
-	let query = await bookModel.findOneAndDelete({ _id: id }).exec()
+	let query = await stokModel.findOneAndDelete({ _id: id }).exec()
 
 	return res.status(200).json({
 		status: "Success",
