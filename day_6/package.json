@@ -1,0 +1,21 @@
+{
+  "name": "day_6",
+  "version": "1.0.0",
+  "description": "day6 NodeJs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Rizky",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "moment": "^2.24.0",
+    "mongoose": "^5.7.11"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}
