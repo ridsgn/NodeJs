@@ -1,15 +1,15 @@
-const Buah = require("../models/buah.model")
+const buahModel = require("../models/buah.model")
 
-const create = async (req) => {
-	let { rasa, status, asal } = req.body
+const cre = async (bos) => {
+	let rasa = bos
 
 	let insert_data = {
-		rasa,
-		status,
-		asal
+		rasa
 	}
 
-	let data = new Buah(insert_data)
+	console.log(bos)
+
+	let data = new buahModel(insert_data)
 
 	try {
 		await data.save()
@@ -22,7 +22,7 @@ const create = async (req) => {
 
 const all = async () => {
 	try {
-		let query = await Buah.find({}).exec()
+		let query = await buahModel.find({}).exec()
 		let data = query.map((v, i) => {
 			return {
 				rasa: v.rasa,
@@ -38,7 +38,7 @@ const all = async () => {
 
 const detail = async (id) => {
 	try {
-		let query = await Buah.findOne({
+		let query = await buahModel.findOne({
 			_id: id
 		}).exec()
 		return query
@@ -57,7 +57,7 @@ const edit = async (id, update_data) => {
 	}
 
 	try {
-		let query = await Buah.findOneAndUpdate({
+		let query = await buahModel.findOneAndUpdate({
 			_id: id
 		}, data).exec()
 
@@ -69,7 +69,7 @@ const edit = async (id, update_data) => {
 
 const del = async (id) => {
 	try {
-		let query = await Buah.findOneAndDelete({
+		let query = await buahModel.findOneAndDelete({
 			_id: id
 		}).exec()
 
@@ -80,7 +80,7 @@ const del = async (id) => {
 }
 
 module.exports = {
-	create,
+	cre,
 	detail,
 	all,
 	edit,

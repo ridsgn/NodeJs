@@ -1,26 +1,21 @@
 const express = require("express")
 const router = express.Router()
-const { create, detail, all, edit, del } = require("../actions/buah")
+const { cre, detail, all, edit, del } = require("../actions/buah")
 
 router.get("/", (req, res) => {
 	return res.send("Hello Buah")
 })
 
-router.post("/create", async (req, res) => {
-	try {
-		let data = await create(req)
+router.post("/", (req, res) => {
+	let rasa = req.body
 
-		return res.status(200).json({
-			status: "Sukses",
-			data,
-			message: "Data buah berhasil ditambahkan"
-		})
-	} catch (err) {
-		return res.status(400).json({
-			status: "Error",
-			message: err.message
-		})
-	}
+	let data = cre(rasa)
+
+	return res.send({
+		status: "success",
+		data,
+		message: "Buku berhasil dibuat"
+	})
 })
 
 router.get("/all", async (req, res) => {
