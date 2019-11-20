@@ -1,5 +1,7 @@
 const mongoose = require("mongoose")
-let host = "mongodb://localhost:27017/latihanday7"
+require('dotenv').config()
+
+const host = process.env.HOST
 
 mongoose.connect(host, {
   useNewUrlParser: true,

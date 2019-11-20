@@ -1,68 +1,78 @@
 const express = require("express")
 const router = express.Router()
-const buahModel = require("../models/buah.model")
+const { create, detail, all, edit, del } = require("../actions/buah")
 
 router.get("/", (req, res) => {
 	return res.send("Hello Buah")
 })
 
 router.post("/create", async (req, res) => {
-	let { rasa, status, asal } = req.body
-	let input_data = {
-		rasa,
-		status,
-		asal
+	try {
+		let data = await create(req)
+
+		return res.status(200).json({
+			status: "Sukses",
+			data,
+			message: "Data buah berhasil ditambahkan"
+		})
+	} catch (err) {
+		return res.status(400).json({
+			status: "Error",
+			message: err.message
+		})
 	}
-
-	let data = new buahModel(input_data)
-	data.save()
-
-	return res.send({
-		status: "Success",
-		data,
-		message: "Buah berhasil ditambahkan"
-	})
 })
 
-router.get("/getAll", async (req, res) => {
-	let result = await buahModel.find({}).exec()
+router.get("/all", async (req, res) => {
+	try {
+		let data = await all()
 
-	res.send({
-		status: "Success",
-		result,
-		message: "Semua data berhasil tampil"
-	})
+		return res.send({
+			status: "Success",
+			data,
+			message: "Semua data berhasil tampil"
+		})
+	} catch (err) {
+		return res.status(400).json({
+			status: "Error",
+			message: err.message
+		})
+	}
 })
 
 router.get("/:id", async (req, res) => {
-	let { id } = req.params
-
-	let data = await buahModel.findOne({ _id: id }).exec()
-
-	return res.send({
-		status: "Success",
-		data,
-		message: "Data detail sukses"
-	})
-})
-
-router.put('/:id', async (req, res) => {
-	let { id } = req.params
-	let { rasa, status, asal } = req.body
-
-	let update_data = {
-		rasa,
-		status,
-		asal
-	}
-
 	try {
-		let data = await buahModel.findByIdAndUpdate(id, update_data)
+		let { id } = req.params
+		let data = await detail(id)
 
 		return res.status(200).json({
 			status: "Success",
 			data,
-			message: "Data sukses di update"
+			message: "Data detail sukses"
+		})
+	} catch (err) {
+		return res.status(400).json({
+			status: "Error",
+			message: err.message
+		})
+	}
+})
+
+router.put('/:id', async (req, res) => {
+	let { id } = req.params
+	let update_data = {
+		rasa: req.body.rasa,
+		status: req.body.status,
+		asal: req.body.asal
+	}
+
+	try {
+		let data = await edit(id, update_data)
+
+		return res.status(200).json({
+			status: "Success",
+			data,
+			message: "Data buah berhasil diubah"
 		})
 	} catch (err) {
 		return res.status(400).json({
@@ -74,13 +84,20 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
 	let id = req.params
-	let query = await buahModel.findOneAndDelete({ _id: id }).exec()
+	try {
+		let data = await del(id)
 
-	return res.status(200).json({
-		status: "Success",
-		query,
-		message: "Data berhasil di hapus"
-	})
+		return res.status(200).json({
+			status: "Success",
+			data,
+			message: "Data berhasil di hapus"
+		})
+	} catch (err) {
+		return res.status(400).json({
+			status: "Error",
+			message: err.message
+		})
+	}
 })
 
 module.exports = router
