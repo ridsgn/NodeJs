@@ -1,15 +1,14 @@
-const buahModel = require("../models/buah.model")
+const Buah = require("../models/buah.models")
 
-const cre = async (bos) => {
-	let rasa = bos
+const create = async (req) => {
+	let { id, rasa, status, asal } = req.body
+	id = parseInt(id)
 
-	let insert_data = {
-		rasa
+	var insert_data = {
+		id, rasa, status, asal
 	}
 
-	console.log(bos)
-
-	let data = new buahModel(insert_data)
+	let data = new Buah(insert_data)
 
 	try {
 		await data.save()
@@ -22,9 +21,10 @@ const cre = async (bos) => {
 
 const all = async () => {
 	try {
-		let query = await buahModel.find({}).exec()
+		let query = await Buah.find({}).exec()
 		let data = query.map((v, i) => {
 			return {
+				id: v.id,
 				rasa: v.rasa,
 				status: v.status,
 				asal: v.asal
@@ -38,8 +38,8 @@ const all = async () => {
 
 const detail = async (id) => {
 	try {
-		let query = await buahModel.findOne({
-			_id: id
+		let query = await Buah.findOne({
+			id: id
 		}).exec()
 		return query
 	} catch (err) {
@@ -57,8 +57,8 @@ const edit = async (id, update_data) => {
 	}
 
 	try {
-		let query = await buahModel.findOneAndUpdate({
-			_id: id
+		let query = await Buah.findOneAndUpdate({
+			id: id
 		}, data).exec()
 
 		return query
@@ -69,8 +69,8 @@ const edit = async (id, update_data) => {
 
 const del = async (id) => {
 	try {
-		let query = await buahModel.findOneAndDelete({
-			_id: id
+		let query = await Buah.findOneAndDelete({
+			id: id
 		}).exec()
 
 		return query
@@ -80,7 +80,7 @@ const del = async (id) => {
 }
 
 module.exports = {
-	cre,
+	create,
 	detail,
 	all,
 	edit,

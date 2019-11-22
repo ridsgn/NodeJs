@@ -5,7 +5,8 @@ const host = process.env.HOST
 
 mongoose.connect(host, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false
 })
 
 mongoose.set("useCreateIndex", true)

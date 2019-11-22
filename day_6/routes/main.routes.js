@@ -1,4 +1,4 @@
-const index = require("./index")
+const index = require("./index.routes")
 const buah = require("./buah.routes")
 const stok = require("./stok.routes")
 

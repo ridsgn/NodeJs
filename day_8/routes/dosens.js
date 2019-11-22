@@ -1,19 +1,15 @@
-const express = require("express")
-const router = express.Router()
-const { create, detail, all, edit, del } = require("../actions/buah.actions")
+const express = require('express');
+const router = express.Router();
+const { buat, semua, detail, ubah, hapus } = require("../actions/dosens");
 
-router.get("/", (req, res) => {
-	return res.send("Hello Buah")
-})
-
-router.post("/create", async (req, res) => {
+router.post("/", async (req, res) => {
 	try {
-		let data = await create(req)
+		let data = await buat(req)
 
 		return res.status(200).json({ // yang dimaksud 200 json adalah respon sukses
 			status: "Sukses",
 			data,
-			message: "Data buah berhasil dibuat !"
+			message: "Data dosen berhasil dibuat !"
 		})
 	} catch (err) {
 		return res.status(400).json({ // yang dimaksud 400 json adalah respon error
@@ -21,16 +17,16 @@ router.post("/create", async (req, res) => {
 			message: err.message
 		})
 	}
-})
+});
 
-router.get("/all", async (req, res) => {
+router.get("/", async (req, res) => {
 	try {
-		let data = await all()
+		let data = await semua()
 
 		return res.send({
-			status: "Success",
+			status: "Sukses",
 			data,
-			message: "Semua data berhasil tampil"
+			message: "Semua data tampil !"
 		})
 	} catch (err) {
 		return res.status(400).json({
@@ -38,7 +34,7 @@ router.get("/all", async (req, res) => {
 			message: err.message
 		})
 	}
-})
+});
 
 router.get("/:id", async (req, res) => {
 	try {
@@ -46,9 +42,9 @@ router.get("/:id", async (req, res) => {
 		let data = await detail(id)
 
 		return res.status(200).json({
-			status: "Success",
+			status: "sukses",
 			data,
-			message: "Data detail sukses"
+			message: "Detail data dosen !"
 		})
 	} catch (err) {
 		return res.status(400).json({
@@ -56,23 +52,26 @@ router.get("/:id", async (req, res) => {
 			message: err.message
 		})
 	}
-})
+});
 
-router.put('/:id', async (req, res) => {
+router.put("/:id", async (req, res) => {
 	let { id } = req.params
 	let update_data = {
-		rasa: req.body.rasa,
-		status: req.body.status,
-		asal: req.body.asal
+		nik: req.body.nik,
+		nama: req.body.nama,
+		email: req.body.email,
+		tlp: req.body.tlp,
+		matkul: req.body.matkul,
+		id_matkul: req.body.id_matkul
 	}
 
 	try {
-		let data = await edit(id, update_data)
+		let data = await ubah(id, update_data)
 
 		return res.status(200).json({
-			status: "Success",
+			status: "Sukses",
 			data,
-			message: "Data buah berhasil diubah"
+			message: "Data Dosen berhasil diubah !"
 		})
 	} catch (err) {
 		return res.status(400).json({
@@ -80,18 +79,18 @@ router.put('/:id', async (req, res) => {
 			message: err.message
 		})
 	}
-})
+});
 
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
 	let { id } = req.params
 
 	try {
-		let data = await del(id)
+		let data = await hapus(id)
 
 		return res.status(200).json({
-			status: "Success",
+			status: "Sukses",
 			data,
-			message: "Data berhasil di hapus"
+			message: "Data Dosen berhasil hapus"
 		})
 	} catch (err) {
 		return res.status(400).json({
@@ -99,6 +98,6 @@ router.delete('/:id', async (req, res) => {
 			message: err.message
 		})
 	}
-})
+});
 
 module.exports = router

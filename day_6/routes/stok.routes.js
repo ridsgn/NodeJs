@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const stokModel = require("../models/stok.model")
+const stokModel = require("../models/stok.models")
 
 router.get("/", (req, res) => {
 	return res.send("Hello Stok")
