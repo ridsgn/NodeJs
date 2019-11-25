@@ -5,6 +5,7 @@ day_6/node_modules/*
 day_8/node_modules/*
 day_6/.env
 day_8/.env
+.vscode
 day_4/latihan/node_modules/*
 day_6/latihan/node_modules/*
 /node_modules

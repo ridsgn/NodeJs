@@ -7,6 +7,8 @@ let mahasiswaSchema = new Schema({
     email: String,
     tlp: Number,
     jurusan: String,
+    id_dosen: String,
+    id_matkul: String
 })
 
 let Mahasiswa = mongoose.model("Mahasiswa", mahasiswaSchema)
