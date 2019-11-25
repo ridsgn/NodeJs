@@ -3,8 +3,10 @@ day_4/node_modules/*
 day_5/node_modules/*
 day_6/node_modules/*
 day_8/node_modules/*
+day_11/node_modules/*
 day_6/.env
 day_8/.env
+day_11/.env
 .vscode
 day_4/latihan/node_modules/*
 day_6/latihan/node_modules/*
