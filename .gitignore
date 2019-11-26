@@ -4,9 +4,11 @@ day_5/node_modules/*
 day_6/node_modules/*
 day_8/node_modules/*
 day_11/node_modules/*
+day_12/node_modules/*
 day_6/.env
 day_8/.env
 day_11/.env
+day_12/.env
 day_4/latihan/node_modules/*
 day_6/latihan/node_modules/*
 /node_modules
