@@ -1,13 +1,11 @@
-const create = require("./User/create.routes")
-const detail = require("./User/detail.routes")
-const del = require("./User/destroy.routes")
-const update = require("./User/update.routes")
+const user = require("./User/user.routes")
+const reset = require("./reset_pass.routes")
+const role = require("./Role/role.routes")
 
 const routes = (app) => {
-    app.use("/delete", del)
-    app.use("/create", create)
-    app.use("/update", update)
-    app.use("/", detail)
+    app.use("/reset", reset)
+    app.use("/role", role)
+    app.use("/user", user)
 }
 
 module.exports = routes

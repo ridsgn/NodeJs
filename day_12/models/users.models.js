@@ -45,6 +45,11 @@ let userSchema = new Schema({
     deleted_at: {
         type: Date,
         default: null
+    },
+    role_id: {
+        type: String,
+        unique: true,
+        required: true
     }
 })
 
