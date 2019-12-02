@@ -8,8 +8,9 @@ class Create {
             (this.phone = req.body.phone),
             (this.username = req.body.username),
             (this.password = req.body.password),
-            (this.password_confirm = req.body.password_confirm),
-            (this.gender = req.body.gender)
+            (this.password_confirmation = req.body.password_confirmation),
+            (this.gender = req.body.gender),
+            (this.role_id = req.body.role_id)
     }
 
     async exec() {
@@ -23,7 +24,8 @@ class Create {
                 email: this.email,
                 phone: this.phone,
                 gender: this.gender,
-                password
+                password,
+                role_id: this.role_id
             }
 
             let query = new User(insert_data)

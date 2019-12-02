@@ -1,34 +1,68 @@
 const User = require("../../models/users.models")
+const Role = require("../../models/roles.model")
+
+// class Detail {
+//     constructor(id) {
+//         (this.id = id)
+//     }
+
+//     async exec() {
+//         try {
+//             let data = await User.findOne({
+//                 _id: this.id
+//             }).exec()
+
+//             if (data === null) {
+//                 throw new Error("Data not found")
+//             }
+
+//             return {
+//                 data
+//             }
+//         } catch (err) {
+//             throw err
+//         }
+//     }
+
+//     async getAll() {
+//         try {
+//             let data = await User.find()
+
+//             return data
+//         } catch (err) {
+//             throw err
+//         }
+//     }
+// }
 
 class Detail {
-    constructor(id) {
-        (this.id = id)
+    constructor(req) {
+        this.query = req.query
     }
 
     async exec() {
         try {
-            let data = await User.findOne({
-                _id: this.id
-            }).exec()
-
-            if (data === null) {
-                throw new Error("Data not found")
+            let { name, permission, page, limit, sorting } = this.query
+            let params = {
+                deleted_at: null
             }
 
-            return {
-                data
+            if (name) {
+                params.name = { $regex: name, $options: "$i" }
             }
-        } catch (err) {
-            throw err
-        }
-    }
+            if (permission) {
+                params.permission = permission
+            }
 
-    async getAll() {
-        try {
-            let data = await User.find()
-
-            return data
+            let query = await User.find(params).populate([
+                {
+                    path: 'role_id',
+                    model: Role
+                }
+            ])
+            return query
         } catch (err) {
+            console.log(err)
             throw err
         }
     }

@@ -17,7 +17,7 @@
     "express-validator": "^6.3.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
-    "mongoose": "^5.7.12",
+    "mongoose": "^5.7.13",
     "nodemailer": "^6.3.1",
     "path": "^0.12.7"
   },

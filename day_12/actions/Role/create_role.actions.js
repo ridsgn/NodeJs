@@ -9,7 +9,6 @@ class CreateRole {
 
     async exec() {
         try {
-
             let query = new Role({
                 name: this.name,
                 permission: this.permission

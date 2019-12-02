@@ -73,26 +73,7 @@ router.post(
 
 router.get("/", async (req, res) => {
     try {
-        let data = await new Detail().getAll()
-
-        return res.send({
-            code: 200,
-            status: "success",
-            message: "Detail data!",
-            data
-        })
-    } catch (err) {
-        return res.send({
-            code: 400,
-            status: "error coy",
-            message: err.message
-        })
-    }
-})
-
-router.get("/:id", async (req, res) => {
-    try {
-        let data = await new Detail(req.params.id).exec()
+        let data = await new Detail(req).exec()
 
         return res.send({
             code: 200,
