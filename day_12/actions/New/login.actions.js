@@ -1,4 +1,5 @@
-const User = require("../models/users.models")
+const User = require("../../models/users.models")
+const Role = require("../../models/roles.models")
 const bcrypt = require("bcryptjs")
 
 class Login {
@@ -12,7 +13,12 @@ class Login {
         try {
             let data = await User.find({
                 email: this.email
-            }).exec()
+            }).populate([
+                {
+                    path: 'role_id',
+                    model: Role
+                }
+            ]).exec()
 
             if (data.length == 0) {
                 throw Error("User not found")

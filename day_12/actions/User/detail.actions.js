@@ -1,5 +1,5 @@
 const User = require("../../models/users.models")
-const Role = require("../../models/roles.model")
+const Role = require("../../models/roles.models")
 
 // class Detail {
 //     constructor(id) {
