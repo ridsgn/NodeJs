@@ -28,7 +28,7 @@ let userSchema = new Schema({
     },
     activated_at: {
         type: Date,
-        default: Date.now()
+        default: null
     },
     activation_token: {
         type: String,

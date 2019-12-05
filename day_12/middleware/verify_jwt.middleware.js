@@ -11,11 +11,19 @@ module.exports = () => {
 			message: 'Invalid header Token'
 		};
 
+		let notadmin = {
+			status: 'unauthenticated',
+			message: "Sorry, You can't access this, because you're not an admin"
+		};
+
 		if (token) {
 			jwt.verify(token, process.env.JWT_SECRET, async (err, data) => {
-				if (data.user_permission === 'User') return res.status(401).json(unauthenticated);
-                // console.log(data);
-                // console.log(err)
+				console.log(typeof req.method);
+				if (data.user_permission !== 'Admin') {
+					if (req.method !== 'GET') {
+						return res.status(401).json(notadmin);
+					}
+				}
 				return next();
 			});
 		} else {
